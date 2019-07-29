@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import axios from "axios";
-import config from "config";
+import config from "../../config/index";
 
 /**
  * Login Component allows user to login to their existing account
@@ -18,12 +18,21 @@ class Login extends Component {
         }
     };
 
+    /**
+     * handleInput sets user input to state, to accurately reflect their input and save for form submission
+     * @param: Event, that triggers the function from user action.
+     */
     handleInput = e => {
         this.setState({
             [e.target.name]: e.target.value
         })
     };
 
+    /**
+     * Submits user inputs to the API endpoint to login
+     * If successful, sets the user's key to localStorage. If unsuccessful, logs error.
+     * @param {*} Event that triggers the function from user submitting form
+     */
     handleSubmit = e => {
         e.preventDefault();
         const credentials = {
@@ -50,7 +59,7 @@ class Login extends Component {
                 // ROUTE TO GAME
             })
             .catch( err => {
-                console.err(err);
+                console.error(err);
                 // TODO: Find out expected errors and format
             })
     }

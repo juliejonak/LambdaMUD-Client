@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import axios from "axios";
-import config from "config";
+import config from "../../config/index";
 
 /**
  * Register Component allowa a user to register for a new account
@@ -19,12 +19,21 @@ class Register extends Component {
         }
     };
 
+    /**
+     * handleInput sets user input to state, to accurately reflect their input and save for form submission
+     * @param: Event, that triggers the function from user action.
+     */
     handleInput = e => {
         this.setState({
             [e.target.name]: e.target.value
         })
     };
 
+    /**
+     * Submits user inputs to the API endpoint to register
+     * If successful, sets the user's key to localStorage. If unsuccessful, logs error.
+     * @param {*} Event that triggers the function from user submitting form
+     */
     handleSubmit = e => {
         e.preventDefault();
 
@@ -56,7 +65,7 @@ class Register extends Component {
                 // ROUTE TO GAME
             })
             .catch( err => {
-                console.err(err);
+                console.error(err);
                 // TODO: Find out expected errors and format
             })
     }
