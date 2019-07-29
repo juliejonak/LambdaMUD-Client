@@ -1,5 +1,5 @@
 import React from "react";
-
+// rendered by Game
 const Map = () => {
   return (
     <div>

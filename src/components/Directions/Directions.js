@@ -1,5 +1,5 @@
 import React from "react";
-
+// rendered by Game
 const Directions = ({ directions: [north, east, west, south] }) => {
   return (
     <>
