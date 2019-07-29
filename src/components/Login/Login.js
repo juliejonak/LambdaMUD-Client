@@ -7,7 +7,6 @@ import config from "../../config/index";
  * Sends credentials object to the API with a username and password
  * Expects from the API a response with a key, validating they are a registered user
  */
-
 class Login extends Component {
     constructor() {
         super();
