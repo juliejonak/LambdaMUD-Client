@@ -1,36 +1,15 @@
-import React, { Component } from "react";
+import React from "react";
 import Notification from "../Notification/Notification";
-import Pusher from "pusher-js";
 // rendered by Game
-class GlobalNotification extends Component {
-  state = {
-    notifications: this.props.notifications,
-    input: ""
-  };
-  componentDidMount() {
-    const pusher = new Pusher(process.env.REACT_APP_PUSHER_API_KEY, {
-      cluster: process.env.REACT_APP_PUSHER_CLUSTER
-    });
-    const channel = pusher.subscribe("channel");
-    channel.bind("notification", data => {
-      this.setState({
-        notifications: [...this.state.notifications]
-      });
-    });
-  }
-  render() {
-    const { notifications } = this.state;
-    return (
-      <>
-        <h1>test</h1>
-        {notifications &&
-          notifications.map(notification => {
-            return <Notification key={notification.id} {...notification} />;
-          })}
-      </>
-    );
-  }
-}
+const GlobalNotification = ({ notifications }) => {
+  return (
+    <>
+      {notifications.map(notification => {
+        return <Notification key={notification.id} {...notification} />;
+      })}
+    </>
+  );
+};
 
 export default GlobalNotification;
 GlobalNotification.defaultProps = {
