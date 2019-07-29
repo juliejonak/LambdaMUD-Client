@@ -11,3 +11,7 @@ const Notification = ({ username, room }) => {
 };
 
 export default Notification;
+Notification.defaultProps = {
+  username: "Ben",
+  room: "nowhere"
+};

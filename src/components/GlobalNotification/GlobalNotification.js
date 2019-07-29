@@ -12,4 +12,12 @@ const GlobalNotification = ({ notifications }) => {
 };
 
 export default GlobalNotification;
-GlobalNotification.defaultProps = {};
+GlobalNotification.defaultProps = {
+  notifications: [
+    { id: 1, username: "Julie", room: "cave entrance" },
+    { id: 2, username: "Winston", room: "infirmary" },
+    { id: 3, username: "Curtis", room: "room with statues" },
+    { id: 4, username: "Latifah", room: "treasure room" },
+    { id: 5, username: "Ben", room: "boss room" }
+  ]
+};
