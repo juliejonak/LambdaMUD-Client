@@ -47,12 +47,13 @@ class Register extends Component {
                 // SET KEY TO localStorage?
                 // Verify return format of res {key: 12345}
                 localStorage.setItem("authToken", res.data.key);
-                // ROUTE TO GAME
                 this.setState({
                     username: "",
                     password1: "",
-                    password2: ""
+                    password2: "",
+                    loading: false
                 });
+                // ROUTE TO GAME
             })
             .catch( err => {
                 console.err(err);
