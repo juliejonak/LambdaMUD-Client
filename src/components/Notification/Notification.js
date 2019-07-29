@@ -1,5 +1,5 @@
 import React from "react";
-
+// rendered by GlobalNotification
 const Notification = ({ username, room }) => {
   return (
     <div>
