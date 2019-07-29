@@ -1,11 +1,15 @@
 import React from "react";
+import Notification from "../Notification/Notification";
 // rendered by Game
-const GlobalNotification = () => {
+const GlobalNotification = ({ notifications }) => {
   return (
-    <div>
-      <h1>Global Notifications</h1>
-    </div>
+    <>
+      {notifications.map(notification => {
+        return <Notification key={notification.id} {...notification} />;
+      })}
+    </>
   );
 };
 
 export default GlobalNotification;
+GlobalNotification.defaultProps = {};
