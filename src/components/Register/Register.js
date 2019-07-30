@@ -1,6 +1,10 @@
 import React, {Component} from "react";
 import axios from "axios";
 import config from "../../config/index";
+import { Form, FormInput, FormSubmit, FormText, FormLabel, FormHeader } from "../CustomComponents/index";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser, faLock } from '@fortawesome/free-solid-svg-icons';
+import { Link } from "react-router-dom";
 
 /**
  * Register Component allowa a user to register for a new account
@@ -72,12 +76,31 @@ class Register extends Component {
 
     render(){
         return(
-            <form onSubmit={this.handleSubmit}>
-                <input onChange={this.handleInput} type="text" name="username" placeholder="Username" value={this.state.username}></input>
-                <input onChange={this.handleInput} type="password" name="password1" placeholder="Password" value={this.state.password1}></input>
-                <input onChange={this.handleInput} type="password" name="password2" placeholder="Repeat Password" value={this.state.password2}></input>
-                <button type="submit">Register</button>
-            </form>
+            <Form onSubmit={this.handleSubmit}>
+
+                <FormHeader>Register for Lambda MUD</FormHeader>
+                
+                <FormLabel name="username">
+                    <FontAwesomeIcon icon={faUser} />
+                    <FormInput onChange={this.handleInput} type="text" name="username" placeholder="Username" value={this.state.username}></FormInput>
+                </FormLabel>
+
+                <FormLabel name="password1">
+                    <FontAwesomeIcon icon={faLock} />
+                    <FormInput onChange={this.handleInput} type="password" name="password1" placeholder="Password" value={this.state.password1}></FormInput>
+                </FormLabel>
+
+                <FormLabel name="password2">
+                    <FontAwesomeIcon icon={faLock} />
+                    <FormInput onChange={this.handleInput} type="password" name="password2" placeholder="Repeat Password" value={this.state.password2}></FormInput>
+                </FormLabel>
+
+                <FormSubmit type="submit" disabled={!this.state.password2} >Register</FormSubmit>
+                <Link to="/login">
+                    <FormText>Already registered?</FormText>
+                </Link>
+
+            </Form>
         )
     }
 };

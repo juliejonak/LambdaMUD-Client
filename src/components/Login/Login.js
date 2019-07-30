@@ -1,13 +1,16 @@
 import React, {Component} from "react";
 import axios from "axios";
 import config from "../../config/index";
+import { Form, FormInput, FormSubmit, FormText, FormLabel, FormHeader } from "../CustomComponents/index";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser, faLock } from '@fortawesome/free-solid-svg-icons';
+import { Link } from "react-router-dom";
 
 /**
  * Login Component allows user to login to their existing account
  * Sends credentials object to the API with a username and password
  * Expects from the API a response with a key, validating they are a registered user
  */
-
 class Login extends Component {
     constructor() {
         super();
@@ -66,11 +69,24 @@ class Login extends Component {
 
     render(){
         return(
-            <form onSubmit={this.handleSubmit}>
-                <input onChange={this.handleInput} type="text" name="username" placeholder="Username" value={this.state.username}></input>
-                <input onChange={this.handleInput} type="password" name="password" placeholder="Password" value={this.state.password}></input>
-                <button type="submit">Login</button>
-            </form>
+            <Form onSubmit={this.handleSubmit}>
+
+                <FormHeader>Login to Lambda MUD</FormHeader>
+                <FormLabel name="username">
+                    <FontAwesomeIcon icon={faUser} />
+                    <FormInput onChange={this.handleInput} type="text" name="username" placeholder="Username" value={this.state.username} />
+                </FormLabel>
+
+                <FormLabel name="password">
+                    <FontAwesomeIcon icon={faLock} />
+                    <FormInput onChange={this.handleInput} type="password" name="password" placeholder="Password" value={this.state.password}></FormInput>
+                </FormLabel>
+
+                <FormSubmit type="submit" disabled={!this.state.password}>Login</FormSubmit>
+                <Link to="/register">
+                    <FormText>Not yet registered?</FormText>
+                </Link>
+            </Form>
         )
     }
 };
