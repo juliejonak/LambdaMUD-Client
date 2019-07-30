@@ -1,24 +1,12 @@
 import React, { Component } from "react";
 import Notification from "../Notification/Notification";
-import Pusher from "pusher-js";
+
 // rendered by Game
 class GlobalNotification extends Component {
   state = {
     notifications: this.props.notifications,
     input: ""
   };
-  componentDidMount() {
-    // const pusher = new Pusher(process.env.REACT_APP_PUSHER_API_KEY, {
-    //   cluster: process.env.REACT_APP_PUSHER_CLUSTER
-    // });
-    // const channel = pusher.subscribe("channel");
-    // channel.bind("notification", data => {
-    //   this.setState({
-    //     notifications: [...this.state.notifications]
-    //   });
-    // });
-    console.log("Component did mount")
-  }
   render() {
     const { notifications } = this.state;
     return (
