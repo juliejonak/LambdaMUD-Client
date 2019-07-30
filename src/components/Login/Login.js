@@ -80,7 +80,7 @@ class Login extends Component {
                     <FormInput onChange={this.handleInput} type="password" name="password" placeholder="Password" value={this.state.password}></FormInput>
                 </FormLabel>
 
-                <FormSubmit type="submit">Login</FormSubmit>
+                <FormSubmit type="submit" disabled={!this.state.password}>Login</FormSubmit>
                 <Link to="/register">
                     <FormText>Not yet registered?</FormText>
                 </Link>

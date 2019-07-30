@@ -93,7 +93,7 @@ class Register extends Component {
                     <FormInput onChange={this.handleInput} type="password" name="password2" placeholder="Repeat Password" value={this.state.password2}></FormInput>
                 </FormLabel>
 
-                <FormSubmit type="submit">Register</FormSubmit>
+                <FormSubmit type="submit" disabled={!this.state.password2} >Register</FormSubmit>
                 <Link to="/login">
                     <FormText>Already registered?</FormText>
                 </Link>
