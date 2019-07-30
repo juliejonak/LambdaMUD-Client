@@ -1,6 +1,10 @@
 import React, {Component} from "react";
 import axios from "axios";
 import config from "../../config/index";
+import { Form, FormInput, FormSubmit, FormText, FormLabel } from "../CustomComponents/index";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser, faLock } from '@fortawesome/free-solid-svg-icons';
+import { Link } from "react-router-dom";
 
 /**
  * Login Component allows user to login to their existing account
@@ -65,11 +69,23 @@ class Login extends Component {
 
     render(){
         return(
-            <form onSubmit={this.handleSubmit}>
-                <input onChange={this.handleInput} type="text" name="username" placeholder="Username" value={this.state.username}></input>
-                <input onChange={this.handleInput} type="password" name="password" placeholder="Password" value={this.state.password}></input>
-                <button type="submit">Login</button>
-            </form>
+            <Form onSubmit={this.handleSubmit}>
+
+                <FormLabel name="username">
+                    <FontAwesomeIcon icon={faUser} />
+                    <FormInput onChange={this.handleInput} type="text" name="username" placeholder="Username" value={this.state.username} />
+                </FormLabel>
+
+                <FormLabel>
+                    <FontAwesomeIcon icon={faLock} />
+                    <FormInput onChange={this.handleInput} type="password" name="password" placeholder="Password" value={this.state.password}></FormInput>
+                </FormLabel>
+
+                    <FormSubmit type="submit">Login</FormSubmit>
+                    <Link to="/register">
+                        <FormText>Not yet registered?</FormText>
+                    </Link>
+            </Form>
         )
     }
 };
