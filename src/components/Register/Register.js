@@ -61,6 +61,8 @@ class Register extends Component {
       loading: true
     });
 
+    console.log('These are the credentials being send: ', credentials,)
+
     axios
       .post(`${config.apiUrl}/api/registration/`, credentials)
       .then(res => {
@@ -77,7 +79,7 @@ class Register extends Component {
         // ROUTE TO GAME
       })
       .catch(err => {
-        console.error(err);
+        console.log(err.response.data);
         // TODO: Find out expected errors and format
       });
   };
