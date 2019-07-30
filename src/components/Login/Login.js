@@ -77,21 +77,21 @@ class Login extends Component {
       });
   };
   /**
-   * sinitializeGame initializes the user's character into the game,
+   * Initializes the user's character into the game,
    *@param: key, the authToken required to initialize the user, received from login/register endpoints
    */
   initializeGame = key => {
     axios
       .get(`${config.apiUrl}/api/adv/init/`, {
-        header: { Authorization: `Token ${key}` }
+        headers: { Authorization: `Token ${key}` }
       })
-      .then(({ data: { uuid, name, title, description, players } }) => {
-        console.log(uuid, name, title, description, players);
-        this.subscribeToChannel(uuid);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+        .then(({ data: { uuid, name, title, description, players }}) => {
+            console.log(uuid, name, title, description, players)
+              this.subscribeToChannel(uuid)
+        })
+        .catch(err => {
+            console.log(err.response.data);
+        });
   };
   /**
    * subscribeToChannel subscribes to a pusher channel and bind to broadcast events
@@ -103,7 +103,7 @@ class Login extends Component {
     });
     const channel = pusher.subscribe(`p-channel-${uuid}`);
     channel.bind("broadcast", data => {
-      console.log(data);
+      console.log("broadcast response", data.message);
       //     this.setState({
 
       //   });
