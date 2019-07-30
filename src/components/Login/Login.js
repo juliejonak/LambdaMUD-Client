@@ -70,21 +70,20 @@ class Login extends Component {
     render(){
         return(
             <Form onSubmit={this.handleSubmit}>
-
                 <FormLabel name="username">
                     <FontAwesomeIcon icon={faUser} />
                     <FormInput onChange={this.handleInput} type="text" name="username" placeholder="Username" value={this.state.username} />
                 </FormLabel>
 
-                <FormLabel>
+                <FormLabel name="password">
                     <FontAwesomeIcon icon={faLock} />
                     <FormInput onChange={this.handleInput} type="password" name="password" placeholder="Password" value={this.state.password}></FormInput>
                 </FormLabel>
 
-                    <FormSubmit type="submit">Login</FormSubmit>
-                    <Link to="/register">
-                        <FormText>Not yet registered?</FormText>
-                    </Link>
+                <FormSubmit type="submit">Login</FormSubmit>
+                <Link to="/register">
+                    <FormText>Not yet registered?</FormText>
+                </Link>
             </Form>
         )
     }
