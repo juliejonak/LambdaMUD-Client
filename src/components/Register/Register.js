@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import axios from "axios";
 import config from "../../config/index";
-import { Form, FormInput, FormSubmit, FormText, FormLabel } from "../CustomComponents/index";
+import { Form, FormInput, FormSubmit, FormText, FormLabel, FormHeader } from "../CustomComponents/index";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faLock } from '@fortawesome/free-solid-svg-icons';
 import { Link } from "react-router-dom";
@@ -78,6 +78,8 @@ class Register extends Component {
         return(
             <Form onSubmit={this.handleSubmit}>
 
+                <FormHeader>Register for Lambda MUD</FormHeader>
+                
                 <FormLabel name="username">
                     <FontAwesomeIcon icon={faUser} />
                     <FormInput onChange={this.handleInput} type="text" name="username" placeholder="Username" value={this.state.username}></FormInput>

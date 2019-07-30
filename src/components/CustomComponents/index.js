@@ -8,7 +8,6 @@ export const Form = styled.form`
     align-self: center;
     margin: 0 auto;
     margin-top: 5em;
-    height: 25em;
 `;
 
 export const FormInput = styled.input`
@@ -47,4 +46,9 @@ export const FormLabel = styled.label`
     align-items: center;
     padding-left: 1.5em;
     margin-bottom: 3em;
+`;
+
+export const FormHeader = styled.h1`
+    color: black;
+    margin-bottom: 2em;
 `;
