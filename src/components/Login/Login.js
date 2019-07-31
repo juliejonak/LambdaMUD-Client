@@ -7,7 +7,10 @@ import {
   FormSubmit,
   FormText,
   FormLabel,
-  FormHeader
+  FormHeader,
+  Background,
+  Body,
+  FormBackground
 } from "../CustomComponents/index";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faLock } from "@fortawesome/free-solid-svg-icons";
@@ -111,8 +114,11 @@ class Login extends Component {
   };
   render() {
     return (
+        <Body>
+        <Background>
+            <FormBackground>
       <Form onSubmit={this.handleSubmit}>
-        <FormHeader>Login to Lambda MUD</FormHeader>
+        <FormHeader>Lambda MUD</FormHeader>
         <FormLabel name="username">
           <FontAwesomeIcon icon={faUser} />
           <FormInput
@@ -142,6 +148,9 @@ class Login extends Component {
           <FormText>Not yet registered?</FormText>
         </Link>
       </Form>
+      </FormBackground>
+      </Background>
+      </Body>
     );
   }
 }
