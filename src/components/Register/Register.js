@@ -7,7 +7,9 @@ import {
   FormSubmit,
   FormText,
   FormLabel,
-  FormHeader
+  FormHeader,
+  Body,
+  Background
 } from "../CustomComponents/index";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faLock } from "@fortawesome/free-solid-svg-icons";
@@ -86,49 +88,53 @@ class Register extends Component {
 
   render() {
     return (
-      <Form onSubmit={this.handleSubmit}>
-        <FormHeader>Register for Lambda MUD</FormHeader>
+      <Body>
+        <Background>
+          <Form onSubmit={this.handleSubmit}>
+            <FormHeader>Lambda MUD</FormHeader>
 
-        <FormLabel name="username">
-          <FontAwesomeIcon icon={faUser} />
-          <FormInput
-            onChange={this.handleInput}
-            type="text"
-            name="username"
-            placeholder="Username"
-            value={this.state.username}
-          />
-        </FormLabel>
+            <FormLabel name="username">
+              <FontAwesomeIcon icon={faUser} />
+              <FormInput
+                onChange={this.handleInput}
+                type="text"
+                name="username"
+                placeholder="Username"
+                value={this.state.username}
+              />
+            </FormLabel>
 
-        <FormLabel name="password1">
-          <FontAwesomeIcon icon={faLock} />
-          <FormInput
-            onChange={this.handleInput}
-            type="password"
-            name="password1"
-            placeholder="Password"
-            value={this.state.password1}
-          />
-        </FormLabel>
+            <FormLabel name="password1">
+              <FontAwesomeIcon icon={faLock} />
+              <FormInput
+                onChange={this.handleInput}
+                type="password"
+                name="password1"
+                placeholder="Password"
+                value={this.state.password1}
+              />
+            </FormLabel>
 
-        <FormLabel name="password2">
-          <FontAwesomeIcon icon={faLock} />
-          <FormInput
-            onChange={this.handleInput}
-            type="password"
-            name="password2"
-            placeholder="Repeat Password"
-            value={this.state.password2}
-          />
-        </FormLabel>
+            <FormLabel name="password2">
+              <FontAwesomeIcon icon={faLock} />
+              <FormInput
+                onChange={this.handleInput}
+                type="password"
+                name="password2"
+                placeholder="Repeat Password"
+                value={this.state.password2}
+              />
+            </FormLabel>
 
-        <FormSubmit type="submit" disabled={!this.state.password2}>
-          Register
-        </FormSubmit>
-        <Link to="/login">
-          <FormText>Already registered?</FormText>
-        </Link>
-      </Form>
+            <FormSubmit type="submit" disabled={!this.state.password2}>
+              Register
+            </FormSubmit>
+            <Link to="/login">
+              <FormText>Already registered?</FormText>
+            </Link>
+          </Form>
+        </Background>
+      </Body>
     );
   }
 }

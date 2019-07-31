@@ -115,41 +115,39 @@ class Login extends Component {
   render() {
     return (
         <Body>
-        <Background>
-            <FormBackground>
-      <Form onSubmit={this.handleSubmit}>
-        <FormHeader>Lambda MUD</FormHeader>
-        <FormLabel name="username">
-          <FontAwesomeIcon icon={faUser} />
-          <FormInput
-            onChange={this.handleInput}
-            type="text"
-            name="username"
-            placeholder="Username"
-            value={this.state.username}
-          />
-        </FormLabel>
+            <Background>
+                <Form onSubmit={this.handleSubmit}>
+                    <FormHeader>Lambda MUD</FormHeader>
+                    <FormLabel name="username">
+                    <FontAwesomeIcon icon={faUser} />
+                    <FormInput
+                        onChange={this.handleInput}
+                        type="text"
+                        name="username"
+                        placeholder="Username"
+                        value={this.state.username}
+                    />
+                    </FormLabel>
 
-        <FormLabel name="password">
-          <FontAwesomeIcon icon={faLock} />
-          <FormInput
-            onChange={this.handleInput}
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={this.state.password}
-          />
-        </FormLabel>
+                    <FormLabel name="password">
+                    <FontAwesomeIcon icon={faLock} />
+                    <FormInput
+                        onChange={this.handleInput}
+                        type="password"
+                        name="password"
+                        placeholder="Password"
+                        value={this.state.password}
+                    />
+                    </FormLabel>
 
-        <FormSubmit type="submit" disabled={!this.state.password}>
-          Login
-        </FormSubmit>
-        <Link to="/register">
-          <FormText>Not yet registered?</FormText>
-        </Link>
-      </Form>
-      </FormBackground>
-      </Background>
+                    <FormSubmit type="submit" disabled={!this.state.password}>
+                    Login
+                    </FormSubmit>
+                    <Link to="/register">
+                    <FormText>Not yet registered?</FormText>
+                    </Link>
+                </Form>
+        </Background>
       </Body>
     );
   }
