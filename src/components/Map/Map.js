@@ -7,18 +7,21 @@ import { MapCreator } from './helpers';
 // Each array within layers represents a layer of tiles drawn onto the canvas
 // 0 means nothing is drawn on
 const Map = MapCreator(5, 10, 64, [[
+  // Grass or road
   2, 2, 2, 1, 2, 1, 1, 1, 2, 2,
   1, 2, 1, 2, 1, 2, 2, 1, 1, 1,
   2, 1, 2, 1, 1, 2, 1, 2, 2, 2,
   1, 2, 2, 2, 1, 1, 2, 1, 2, 1,
   2, 1, 2, 1, 1, 2, 1, 1, 2, 2
 ], [
+  // Obstacles and grass edging
   0, 4, 0, 7, 0, 6, 9, 8, 0, 0,
   8, 0, 9, 0, 9, 3, 0, 8, 6, 9,
   0, 0, 5, 8, 0, 0, 6, 0, 3, 0,
   8, 0, 4, 0, 6, 6, 5, 8, 0, 9,
   0, 6, 0, 6, 6, 0, 6, 9, 0, 4
 ], [
+  // Rooms and grass edging
   10, 0, 16, 0, 19, 7, 7, 7, 16, 18,
   0, 15, 0, 17, 0, 0, 11, 0, 0, 0,
   11, 0, 0, 0, 0, 20, 0, 12, 0, 19,
