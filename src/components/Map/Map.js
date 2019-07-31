@@ -2,6 +2,10 @@ import React from "react";
 import { MapCreator } from './helpers';
 
 // rendered by Game
+
+// Creates a Map instance with array (layers). 
+// Each array within layers represents a layer of tiles drawn onto the canvas
+// 0 means nothing is drawn on
 const Map = MapCreator(5, 10, 64, [[
   2, 2, 2, 1, 2, 1, 1, 1, 2, 2,
   1, 2, 1, 2, 1, 2, 2, 1, 1, 1,
@@ -30,4 +34,4 @@ const MapComponent = () => {
   );
 };
 
-export default Map;
+export default MapComponent;
