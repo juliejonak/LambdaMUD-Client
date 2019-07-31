@@ -1,5 +1,5 @@
   
-class MapCreator {
+export class MapCreator {
     constructor(rows, columns, tile_size, layers){
         this.rows = rows;
         this.columns = columns;
