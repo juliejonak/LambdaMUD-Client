@@ -1,17 +1,19 @@
 import React from "react";
 // rendered by Game
-const Directions = ({ directions: [north, east, west, south] }) => {
+// TO DO
+// replace directions from text to images
+const Directions = ({ handleMovement }) => {
   return (
     <>
-      <div>{north}</div>
-      <div>{east}</div>
-      <div>{west}</div>
-      <div>{south}</div>
+      <div onClick={() => handleMovement("n")}>N</div>
+      <div onClick={() => handleMovement("e")}>E</div>
+      <div onClick={() => handleMovement("w")}>W</div>
+      <div onClick={() => handleMovement("s")}>S</div>
     </>
   );
 };
 
 export default Directions;
 Directions.defaultProps = {
-  directions: ["north", "east", "west", "south"]
+  handleMovement: () => "moved"
 };

@@ -15,7 +15,6 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faLock } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import Pusher from "pusher-js";
 /**
  * Login Component allows user to login to their existing account
  * Sends credentials object to the API with a username and password
@@ -58,20 +57,18 @@ class Login extends Component {
       loading: true
     });
 
-    axios
-      .post(`${config.apiUrl}/api/login/`, credentials)
+    config
+      .axiosWithAuth()
+      .post(`/api/login/`, credentials)
       .then(({ data }) => {
         // SET KEY TO localStorage?
         // Verify return format of res {key: 12345}
-        console.log(data);
         localStorage.setItem("authToken", data.key);
         this.setState({
           username: "",
           password: "",
           loading: false
         });
-        this.initializeGame(data.key);
-        console.log(data.key);
         // ROUTE TO GAME
       })
       .catch(err => {
@@ -79,74 +76,42 @@ class Login extends Component {
         // TODO: Find out expected errors and format
       });
   };
-  /**
-   * Initializes the user's character into the game,
-   *@param: key, the authToken required to initialize the user, received from login/register endpoints
-   */
-  initializeGame = key => {
-    axios
-      .get(`${config.apiUrl}/api/adv/init/`, {
-        headers: { Authorization: `Token ${key}` }
-      })
-        .then(({ data: { uuid, name, title, description, players }}) => {
-            console.log(uuid, name, title, description, players)
-              this.subscribeToChannel(uuid)
-        })
-        .catch(err => {
-            console.log(err.response.data);
-        });
-  };
-  /**
-   * subscribeToChannel subscribes to a pusher channel and bind to broadcast events
-   *@param: uuid, subscribe to the uuid channel provided
-   */
-  subscribeToChannel = uuid => {
-    const pusher = new Pusher(process.env.REACT_APP_PUSHER_API_KEY, {
-      cluster: process.env.REACT_APP_PUSHER_CLUSTER
-    });
-    const channel = pusher.subscribe(`p-channel-${uuid}`);
-    channel.bind("broadcast", data => {
-      console.log("broadcast response", data.message);
-      //     this.setState({
 
-      //   });
-    });
-  };
   render() {
     return (
-        <Body>
-            <Background>
-                <Form onSubmit={this.handleSubmit}>
-                    <FormHeader>Lambda MUD</FormHeader>
-                    <FormLabel name="username">
-                    <FontAwesomeIcon icon={faUser} />
-                    <FormInput
-                        onChange={this.handleInput}
-                        type="text"
-                        name="username"
-                        placeholder="Username"
-                        value={this.state.username}
-                    />
-                    </FormLabel>
+      <Body>
+        <Background>
+          <Form onSubmit={this.handleSubmit}>
+            <FormHeader>Lambda MUD</FormHeader>
+            <FormLabel name="username">
+              <FontAwesomeIcon icon={faUser} />
+              <FormInput
+                onChange={this.handleInput}
+                type="text"
+                name="username"
+                placeholder="Username"
+                value={this.state.username}
+              />
+            </FormLabel>
 
-                    <FormLabel name="password">
-                    <FontAwesomeIcon icon={faLock} />
-                    <FormInput
-                        onChange={this.handleInput}
-                        type="password"
-                        name="password"
-                        placeholder="Password"
-                        value={this.state.password}
-                    />
-                    </FormLabel>
+            <FormLabel name="password">
+              <FontAwesomeIcon icon={faLock} />
+              <FormInput
+                onChange={this.handleInput}
+                type="password"
+                name="password"
+                placeholder="Password"
+                value={this.state.password}
+              />
+            </FormLabel>
 
-                    <FormSubmit type="submit" disabled={!this.state.password}>
-                    Login
-                    </FormSubmit>
-                    <Link to="/register">
-                    <FormText>Not yet registered?</FormText>
-                    </Link>
-                </Form>
+            <FormSubmit type="submit" disabled={!this.state.password}>
+              Login
+            </FormSubmit>
+            <Link to="/register">
+              <FormText>Not yet registered?</FormText>
+            </Link>
+          </Form>
         </Background>
       </Body>
     );
