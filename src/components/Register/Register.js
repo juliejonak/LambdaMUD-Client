@@ -79,6 +79,7 @@ class Register extends Component {
           loading: false
         });
         // ROUTE TO GAME
+        this.props.history.push(`/`);
       })
       .catch(err => {
         console.log(err.response.data);

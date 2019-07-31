@@ -14,12 +14,13 @@ export const Form = styled.form`
 
 export const FormInput = styled.input`
     border: none;
-    padding-left: 1em;
+    padding-left: 2em;
     height: 1.5em;
-    font-size: 1.5em;
+    font-size: 1em;
     width: 70%;
-    font-family: 'Saira Stencil One', cursive;
+    font-family: 'Press Start 2P', cursive;
     background-color: #e4ebe5;
+    padding-top: 0.3em;
 `;
 
 export const FormLabel = styled.label`
@@ -38,13 +39,14 @@ export const FormLabel = styled.label`
 
 export const FormSubmit = styled.button`
     width: 25%;
-    height: 2em;
+    height: 2.5em;
     border-radius: 50px;
-    font-size: 1.5em;
+    font-size: 1em;
     font-weight: bold;
     background-color: #094512;
     border: 1px solid #747574;
     color: #e4ebe5;
+    font-family: 'Press Start 2P', cursive;
 
     &:hover{
         box-shadow: 5px 5px 20px rgba(255, 255, 255, 0.35);
@@ -62,11 +64,11 @@ export const FormText = styled.p`
 
 export const FormHeader = styled.h1`
     color: black;
-    font-family: 'Saira Stencil One', cursive;
-    font-size: 4em;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 3.5em;
     color: #016b18;
-    -webkit-text-stroke: 0.2px #053616;
-    margin-bottom: 3%;
+    -webkit-text-stroke: 0.1px #053616;
+    margin-bottom: 1.2em;
 `;
 
 export const FormBackground = styled.div`
