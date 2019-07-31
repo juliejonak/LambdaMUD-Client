@@ -7,7 +7,10 @@ import {
   FormSubmit,
   FormText,
   FormLabel,
-  FormHeader
+  FormHeader,
+  Background,
+  Body,
+  FormBackground
 } from "../CustomComponents/index";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faLock } from "@fortawesome/free-solid-svg-icons";
@@ -77,21 +80,21 @@ class Login extends Component {
       });
   };
   /**
-   * sinitializeGame initializes the user's character into the game,
+   * Initializes the user's character into the game,
    *@param: key, the authToken required to initialize the user, received from login/register endpoints
    */
   initializeGame = key => {
     axios
       .get(`${config.apiUrl}/api/adv/init/`, {
-        header: { Authorization: `Token ${key}` }
+        headers: { Authorization: `Token ${key}` }
       })
-      .then(({ data: { uuid, name, title, description, players } }) => {
-        console.log(uuid, name, title, description, players);
-        this.subscribeToChannel(uuid);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+        .then(({ data: { uuid, name, title, description, players }}) => {
+            console.log(uuid, name, title, description, players)
+              this.subscribeToChannel(uuid)
+        })
+        .catch(err => {
+            console.log(err.response.data);
+        });
   };
   /**
    * subscribeToChannel subscribes to a pusher channel and bind to broadcast events
@@ -103,7 +106,7 @@ class Login extends Component {
     });
     const channel = pusher.subscribe(`p-channel-${uuid}`);
     channel.bind("broadcast", data => {
-      console.log(data);
+      console.log("broadcast response", data.message);
       //     this.setState({
 
       //   });
@@ -111,37 +114,41 @@ class Login extends Component {
   };
   render() {
     return (
-      <Form onSubmit={this.handleSubmit}>
-        <FormHeader>Login to Lambda MUD</FormHeader>
-        <FormLabel name="username">
-          <FontAwesomeIcon icon={faUser} />
-          <FormInput
-            onChange={this.handleInput}
-            type="text"
-            name="username"
-            placeholder="Username"
-            value={this.state.username}
-          />
-        </FormLabel>
+        <Body>
+            <Background>
+                <Form onSubmit={this.handleSubmit}>
+                    <FormHeader>Lambda MUD</FormHeader>
+                    <FormLabel name="username">
+                    <FontAwesomeIcon icon={faUser} />
+                    <FormInput
+                        onChange={this.handleInput}
+                        type="text"
+                        name="username"
+                        placeholder="Username"
+                        value={this.state.username}
+                    />
+                    </FormLabel>
 
-        <FormLabel name="password">
-          <FontAwesomeIcon icon={faLock} />
-          <FormInput
-            onChange={this.handleInput}
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={this.state.password}
-          />
-        </FormLabel>
+                    <FormLabel name="password">
+                    <FontAwesomeIcon icon={faLock} />
+                    <FormInput
+                        onChange={this.handleInput}
+                        type="password"
+                        name="password"
+                        placeholder="Password"
+                        value={this.state.password}
+                    />
+                    </FormLabel>
 
-        <FormSubmit type="submit" disabled={!this.state.password}>
-          Login
-        </FormSubmit>
-        <Link to="/register">
-          <FormText>Not yet registered?</FormText>
-        </Link>
-      </Form>
+                    <FormSubmit type="submit" disabled={!this.state.password}>
+                    Login
+                    </FormSubmit>
+                    <Link to="/register">
+                    <FormText>Not yet registered?</FormText>
+                    </Link>
+                </Form>
+        </Background>
+      </Body>
     );
   }
 }
