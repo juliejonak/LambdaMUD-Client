@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import axios from "axios";
 import config from "../../config/index";
 import {
   Form,
@@ -10,7 +9,6 @@ import {
   FormHeader,
   Background,
   Body,
-  FormBackground
 } from "../CustomComponents/index";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faLock } from "@fortawesome/free-solid-svg-icons";
@@ -61,6 +59,7 @@ class Login extends Component {
       .axiosWithAuth()
       .post(`/api/login/`, credentials)
       .then(({ data }) => {
+        console.log("Login res: ", data.key)
         // SET KEY TO localStorage?
         // Verify return format of res {key: 12345}
         localStorage.setItem("authToken", data.key);
@@ -70,9 +69,10 @@ class Login extends Component {
           loading: false
         });
         // ROUTE TO GAME
+        this.props.history.push(`/`);
       })
       .catch(err => {
-        console.error(err);
+        console.log(err.response.data);
         // TODO: Find out expected errors and format
       });
   };

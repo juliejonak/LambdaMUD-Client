@@ -5,7 +5,11 @@ import axios from "axios";
  * axiosWithAuth returns an axios instance with the authorization headers and baseURL
  */
 export const config = {
-  apiUrl: "http://127.0.0.1:8000",
+  // apiUrl: "http://127.0.0.1:8000",
+    apiUrl: "https://lambda-mud-test.herokuapp.com",
+  /**
+   * @returns an Authorization Header with the user's authToken
+   */
   axiosWithAuth: function() {
     return axios.create({
       baseURL: this.apiUrl,
@@ -14,7 +18,6 @@ export const config = {
       }
     });
   }
-  //   apiUrl: "https://lambda-mud-test.herokuapp.com"
 };
 
 export default config;

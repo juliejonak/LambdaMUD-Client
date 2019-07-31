@@ -65,7 +65,7 @@ export default class Game extends Component {
         this.subscribeToChannel(uuid);
       })
       .catch(err => {
-        console.log(err.response.data);
+        console.log(err);
       });
   };
   /**
