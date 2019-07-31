@@ -57,12 +57,12 @@ class Login extends Component {
       loading: true
     });
 
-    axios
-      .post(`${config.apiUrl}/api/login/`, credentials)
+    config
+      .axiosWithAuth()
+      .post(`/api/login/`, credentials)
       .then(({ data }) => {
         // SET KEY TO localStorage?
         // Verify return format of res {key: 12345}
-        console.log(data);
         localStorage.setItem("authToken", data.key);
         this.setState({
           username: "",
