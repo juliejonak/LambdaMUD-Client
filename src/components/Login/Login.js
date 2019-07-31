@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import config from "../../config/index";
+import axios from "axios";
+import config from "../../config";
 import {
   Form,
   FormInput,
@@ -8,7 +9,7 @@ import {
   FormLabel,
   FormHeader,
   Background,
-  Body,
+  Body
 } from "../CustomComponents/index";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faLock } from "@fortawesome/free-solid-svg-icons";
@@ -55,14 +56,13 @@ class Login extends Component {
       loading: true
     });
 
-    config
-      .axiosWithAuth()
-      .post(`/api/login/`, credentials)
-      .then(({ data }) => {
-        console.log("Login res: ", data.key)
+    axios
+      .post(`${config.apiUrl}/api/login/`, credentials)
+      .then(res => {
+        console.log("Login res: ", res.data.key);
         // SET KEY TO localStorage?
         // Verify return format of res {key: 12345}
-        localStorage.setItem("authToken", data.key);
+        localStorage.setItem("authToken", res.data.key);
         this.setState({
           username: "",
           password: "",
@@ -72,7 +72,7 @@ class Login extends Component {
         this.props.history.push(`/`);
       })
       .catch(err => {
-        console.log(err.response.data);
+        console.error(err.response);
         // TODO: Find out expected errors and format
       });
   };
