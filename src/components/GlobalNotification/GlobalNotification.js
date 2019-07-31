@@ -4,14 +4,13 @@ import Notification from "../Notification/Notification";
 // rendered by Game
 class GlobalNotification extends Component {
   state = {
-    notifications: this.props.notifications,
-    input: ""
+    notifications: this.props.notifications
   };
   render() {
     const { notifications } = this.state;
     return (
       <>
-        <h1>test</h1>
+        <h2>Notifications</h2>
         {notifications &&
           notifications.map(notification => {
             return <Notification key={notification.id} {...notification} />;
