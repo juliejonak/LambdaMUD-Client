@@ -90,6 +90,11 @@ export default class Game extends Component {
   };
   componentDidMount() {
     this.initializeGame();
+    config
+      .axiosWithAuth()
+      .get("/api/adv/map/")
+      .then(data => console.log(data))
+      .catch(err => console.log(err));
   }
 
   render() {
