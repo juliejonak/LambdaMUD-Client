@@ -219,24 +219,12 @@ class MapComponent extends Component {
     };
     background();
     userCharacter.onload = () => {
-      ctx2.drawImage(userCharacter, 0, 0);
+      // based on direction
+      // update x or y
+      const x = 0;
+      const y = 0;
+      ctx2.drawImage(userCharacter, 0, 0, 64, 64, x, y, 64, 64);
     };
-
-    // background().then(
-    // res =>
-    // );
-    // background(0);
-    // background(1);
-    // background(0)
-    //   .then(res => {
-    //     console.log("*****res", res);
-    //     ctx.globalCompositeOperation = "source-over";
-    //     userCharacter.onload = () => {
-    //       ctx.drawImage(userCharacter, 0, 0);
-    //     };
-    //     console.log("works");
-    //   })
-    //   .catch(err => console.log(err));
   }
   getContext = () => this.canvasRef.current.getContext("2d");
 
@@ -252,7 +240,7 @@ class MapComponent extends Component {
           ref={this.canvasRef2}
           width={width}
           height={height}
-          style={{ position: "absolute", top: "0" }}
+          style={{ position: "absolute", top: "0", left: "0" }}
         />
       </div>
     );
