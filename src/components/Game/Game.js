@@ -16,7 +16,8 @@ export default class Game extends Component {
     players: [],
     notifications: "",
     userInput: "",
-    error_msg: ""
+    error_msg: "",
+    possibleMovments: []
   };
   // TO DO,
   handleChange = e => {
@@ -48,6 +49,8 @@ export default class Game extends Component {
           players: [...this.state.players, ...players],
           error_msg
         });
+        // iterate through possible movements
+        // check if its' in there, then pass them down down to MapComponent
       })
       .catch(err => console.log(err));
   };
@@ -61,7 +64,13 @@ export default class Game extends Component {
       .axiosWithAuth()
       .get(`/api/adv/init/`)
       .then(({ data: { uuid, name, title, description, players } }) => {
-        this.setState({ uuid, name, title, description, players });
+        this.setState({
+          uuid,
+          name,
+          title,
+          description,
+          players
+        });
         this.subscribeToChannel(uuid);
       })
       .catch(err => {
