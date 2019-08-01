@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { MapCreator } from "./helpers";
 import tileMap from "../../assets/MUD_Tile_Set.png";
-import { Game } from "./helpers";
 // rendered by Game
 
 // Creates a Map instance with array (layers).
@@ -174,8 +173,8 @@ class MapComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      width: 200,
-      height: 200
+      width: 800,
+      height: 800
     };
     this.canvasRef = React.createRef();
   }
@@ -186,7 +185,29 @@ class MapComponent extends Component {
     const ctx = this.canvasRef.current.getContext("2d");
     // image,x coord,y coord,tile width,tile height,x-coord,y-coord,
     image.onload = () => {
-      ctx.drawImage(image, 65, 0, 64, 64, 0, 0, 64, 64);
+      for (let i = 0; i < 3; i++) {
+        for (var c = 0; c < Map.columns; c++) {
+          for (var r = 0; r < Map.rows; r++) {
+            var tile = Map.getTile(i, c, r);
+            if (tile !== 0) {
+              // 0 => empty tile
+              console.log("1", tile);
+              ctx.drawImage(
+                image, // image
+                (tile - 1) * Map.tile_size, // source x
+                0, // source y
+                Map.tile_size, // source width
+                Map.tile_size, // source height
+                c * Map.tile_size, // target x
+                r * Map.tile_size, // target y
+                Map.tile_size, // target width
+                Map.tile_size // target height
+              );
+              console.log("4");
+            }
+          }
+        }
+      }
     };
   }
   getContext = () => this.canvasRef.current.getContext("2d");
