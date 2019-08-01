@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import { MapCreator } from "./helpers";
 import tileMap from "../../assets/MUD_Tile_Set.png";
 import tRex from "../../assets/trex.png";
@@ -174,14 +174,15 @@ class MapComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      width: 800,
-      height: 800
+      width: 640,
+      height: 320,
+      userX: 320,
+      userY: 128
     };
     this.canvasRef = React.createRef();
     this.canvasRef2 = React.createRef();
   }
-
-  async updateMap() {
+  updateMap() {
     const image = new Image();
     const userCharacter = new Image();
     image.src = tileMap;
@@ -218,14 +219,69 @@ class MapComponent extends Component {
       });
     };
     background();
+    const { userX, userY } = this.state;
     userCharacter.onload = () => {
       // based on direction
-      // update x or y
-      const x = 0;
-      const y = 0;
-      ctx2.drawImage(userCharacter, 0, 0, 64, 64, x, y, 64, 64);
+      switch (this.props.moveDirection) {
+        case "n":
+          this.setState(
+            {
+              ...this.state,
+              userY: this.state.userY - 64
+            },
+            () => draw(this.state.userX, this.state.userY)
+          );
+          break;
+        case "e":
+          this.setState(
+            {
+              ...this.state,
+              userX: this.state.userX + 64
+            },
+            () => draw(this.state.userX, this.state.userY)
+          );
+          break;
+        case "w":
+          this.setState(
+            {
+              ...this.state,
+              userX: this.state.userX - 64
+            },
+            () => draw(this.state.userX, this.state.userY)
+          );
+          break;
+        case "s":
+          this.setState(
+            {
+              ...this.state,
+              userY: this.state.userY + 64
+            },
+            () => draw(this.state.userX, this.state.userY)
+          );
+          break;
+        default:
+          console.log(`can't move that way`);
+          draw(userX, userY);
+      }
+      console.log("drawn", userX, userY);
     };
+    function draw(x, y) {
+      ctx2.clearRect(0, 0, 640, 320);
+      ctx2.drawImage(userCharacter, 0, 0, 64, 64, x, y, 64, 64);
+    }
   }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps !== this.props) {
+      this.updateMap();
+    }
+  }
+
+  // componentWillReceiveProps(nextProps) {
+  //   if (nextProps.moveDirection) {
+  //     this.updateMap();
+  //   }
+  // }
+
   getContext = () => this.canvasRef.current.getContext("2d");
 
   componentDidMount() {
