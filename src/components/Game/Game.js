@@ -6,6 +6,10 @@ import GlobalNotification from "../GlobalNotification/GlobalNotification";
 import config from "../../config";
 import Pusher from "pusher-js";
 
+/**
+ * Game holds the entire game that the user interacts with and is the component that communicates with the API endpoints to send and receive data about the user's interaction and movements.
+ */
+
 // rendered by App
 export default class Game extends Component {
   state = {
