@@ -20,7 +20,8 @@ export default class Game extends Component {
     players: [],
     notifications: "",
     userInput: "",
-    error_msg: ""
+    error_msg: "",
+    moveDirection: ""
   };
   // TO DO,
   handleChange = e => {
@@ -46,12 +47,25 @@ export default class Game extends Component {
       .axiosWithAuth()
       .post("/api/adv/move/", { direction })
       .then(({ data: { title, description, players, error_msg } }) => {
-        this.setState({
-          title,
-          description,
-          players: [...this.state.players, ...players],
-          error_msg
-        });
+        error_msg
+          ? this.setState({
+              title,
+              description,
+              players: [...this.state.players, ...players],
+              error_msg,
+              moveDirection: ""
+            })
+          : this.setState({
+              title,
+              description,
+              players: [...this.state.players, ...players],
+              error_msg,
+              moveDirection: direction
+            });
+
+        // iterate through possible movements
+
+        // check if its' in there, then pass them down down to MapComponent
       })
       .catch(err => console.log(err));
   };
@@ -65,7 +79,13 @@ export default class Game extends Component {
       .axiosWithAuth()
       .get(`/api/adv/init/`)
       .then(({ data: { uuid, name, title, description, players } }) => {
-        this.setState({ uuid, name, title, description, players });
+        this.setState({
+          uuid,
+          name,
+          title,
+          description,
+          players
+        });
         this.subscribeToChannel(uuid);
       })
       .catch(err => {
@@ -94,13 +114,18 @@ export default class Game extends Component {
   };
   componentDidMount() {
     this.initializeGame();
+    config
+      .axiosWithAuth()
+      .get("/api/adv/map/")
+      .then(data => console.log(data))
+      .catch(err => console.log(err));
   }
 
   render() {
-    const { notifications } = this.state;
+    const { notifications, moveDirection } = this.state;
     return (
       <div>
-        <Map />
+        <Map moveDirection={moveDirection} />
         <Directions handleMovement={this.handleMovement} />
         <InputBox
           handleChange={this.handleChange}
