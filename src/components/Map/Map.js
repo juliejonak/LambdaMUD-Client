@@ -1,12 +1,17 @@
 import React from "react";
 import { MapCreator } from './helpers';
 
+/**
+ * Map.js is our instance of the MapCreator, used to dictate the size of the game board, individual tiles, and to create the layers of the graphical game board.
+ * It initializes the canvas layers and draws the game board and sprite onto those canvases.
+ */
+
 // rendered by Game
 
 // Creates a Map instance with array (layers). 
 // Each array within layers represents a layer of tiles drawn onto the canvas
 // 0 means nothing is drawn on
-const Map = MapCreator(5, 10, 64, [[
+const Map = new MapCreator(5, 10, 64, [[
   // Grass or road
   2, 2, 2, 1, 2, 1, 1, 1, 2, 2,
   1, 2, 1, 2, 1, 2, 2, 1, 1, 1,

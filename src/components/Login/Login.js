@@ -14,11 +14,14 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faLock } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+
+
 /**
  * Login Component allows user to login to their existing account
  * Sends credentials object to the API with a username and password
  * Expects from the API a response with a key, validating they are a registered user
  */
+
 class Login extends Component {
   constructor() {
     super();

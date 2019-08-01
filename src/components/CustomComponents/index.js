@@ -1,8 +1,15 @@
 import styled from "styled-components";
 import img from './background.png';
 
-// FORM COMPONENTS
+/**
+ * This is the file that contains all custom built styled-components, used throughout the application.
+ */
 
+
+
+/**
+ * FORM COMPONENTS: Used on the user input forms for login and register
+ */
 export const Form = styled.form`
     display: flex;
     flex-direction: column;
