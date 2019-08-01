@@ -17,7 +17,7 @@ export default class Game extends Component {
     notifications: "",
     userInput: "",
     error_msg: "",
-    possibleMovments: []
+    moveDirection: ""
   };
   // TO DO,
   handleChange = e => {
@@ -43,13 +43,24 @@ export default class Game extends Component {
       .axiosWithAuth()
       .post("/api/adv/move/", { direction })
       .then(({ data: { title, description, players, error_msg } }) => {
-        this.setState({
-          title,
-          description,
-          players: [...this.state.players, ...players],
-          error_msg
-        });
+        error_msg
+          ? this.setState({
+              title,
+              description,
+              players: [...this.state.players, ...players],
+              error_msg,
+              moveDirection: ""
+            })
+          : this.setState({
+              title,
+              description,
+              players: [...this.state.players, ...players],
+              error_msg,
+              moveDirection: direction
+            });
+
         // iterate through possible movements
+
         // check if its' in there, then pass them down down to MapComponent
       })
       .catch(err => console.log(err));
@@ -107,10 +118,10 @@ export default class Game extends Component {
   }
 
   render() {
-    const { notifications } = this.state;
+    const { notifications, moveDirection } = this.state;
     return (
       <div>
-        <Map />
+        <Map moveDirection={moveDirection} />
         <Directions handleMovement={this.handleMovement} />
         <InputBox
           handleChange={this.handleChange}
