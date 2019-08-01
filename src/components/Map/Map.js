@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { MapCreator } from "./helpers";
 import tileMap from "../../assets/MUD_Tile_Set.png";
+import tRex from "../../assets/trex.png";
 // rendered by Game
 
 // Creates a Map instance with array (layers).
@@ -177,40 +178,68 @@ class MapComponent extends Component {
       height: 800
     };
     this.canvasRef = React.createRef();
+    this.canvasRef2 = React.createRef();
   }
 
-  updateMap() {
+  async updateMap() {
     const image = new Image();
+    const userCharacter = new Image();
     image.src = tileMap;
+    userCharacter.src = tRex;
     const ctx = this.canvasRef.current.getContext("2d");
-    // image,x coord,y coord,tile width,tile height,x-coord,y-coord,
-    image.onload = () => {
-      for (let i = 0; i < 3; i++) {
-        for (var c = 0; c < Map.columns; c++) {
-          for (var r = 0; r < Map.rows; r++) {
-            var tile = Map.getTile(i, c, r);
-            if (tile !== 0) {
-              // 0 => empty tile
-              console.log("1", tile);
-              ctx.drawImage(
-                image, // image
-                (tile - 1) * Map.tile_size, // source x
-                0, // source y
-                Map.tile_size, // source width
-                Map.tile_size, // source height
-                c * Map.tile_size, // target x
-                r * Map.tile_size, // target y
-                Map.tile_size, // target width
-                Map.tile_size // target height
-              );
-              console.log("4");
+    const ctx2 = this.canvasRef2.current.getContext("2d");
+
+    // only draw the canvas after the image has been loaded
+    const background = () => {
+      return new Promise(resolve => {
+        image.onload = () => {
+          for (var i = 0; i < 3; i++) {
+            for (var c = 0; c < Map.columns; c++) {
+              for (var r = 0; r < Map.rows; r++) {
+                var tile = Map.getTile(i, c, r);
+                if (tile !== 0) {
+                  ctx.drawImage(
+                    image, // image
+                    (tile - 1) * Map.tile_size, // source x
+                    0, // source y
+                    Map.tile_size, // source width
+                    Map.tile_size, // source height
+                    c * Map.tile_size, // target x
+                    r * Map.tile_size, // target y
+                    Map.tile_size, // target width
+                    Map.tile_size // target height
+                  );
+                }
+              }
             }
           }
-        }
-      }
+        };
+        resolve("hi");
+      });
     };
+    background();
+    userCharacter.onload = () => {
+      ctx2.drawImage(userCharacter, 0, 0);
+    };
+
+    // background().then(
+    // res =>
+    // );
+    // background(0);
+    // background(1);
+    // background(0)
+    //   .then(res => {
+    //     console.log("*****res", res);
+    //     ctx.globalCompositeOperation = "source-over";
+    //     userCharacter.onload = () => {
+    //       ctx.drawImage(userCharacter, 0, 0);
+    //     };
+    //     console.log("works");
+    //   })
+    //   .catch(err => console.log(err));
   }
   getContext = () => this.canvasRef.current.getContext("2d");
+
   componentDidMount() {
     this.updateMap();
   }
@@ -219,6 +248,12 @@ class MapComponent extends Component {
     return (
       <div>
         <canvas ref={this.canvasRef} width={width} height={height} />
+        <canvas
+          ref={this.canvasRef2}
+          width={width}
+          height={height}
+          style={{ position: "absolute", top: "0" }}
+        />
       </div>
     );
   }
