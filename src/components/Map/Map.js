@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { MapCreator } from "./helpers";
 import tileMap from "../../assets/MUD_Tile_Set.png";
-import tRex from "../../assets/trex.png";
+import sprite from "../../assets/sprite.png";
 import { MapWrapper } from "../CustomComponents";
 
 /**
@@ -192,7 +192,7 @@ class MapComponent extends Component {
     const image = new Image();
     const userCharacter = new Image();
     image.src = tileMap;
-    userCharacter.src = tRex;
+    userCharacter.src = sprite;
     const ctx = this.canvasRef.current.getContext("2d");
     const ctx2 = this.canvasRef2.current.getContext("2d");
 
