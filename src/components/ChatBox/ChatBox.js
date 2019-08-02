@@ -11,10 +11,10 @@ class ChatBox extends React.Component {
   };
   handleSubmit = e => {
     e.preventDefault();
-    const { userInput } = this.state;
+    const { userInput: message } = this.state;
     config
       .axiosWithAuth()
-      .post("/api/adv/say/", userInput)
+      .post("/api/adv/say/", { message })
       .then(({ data }) => {
         console.log("hi", data);
         // TO DO,
@@ -27,12 +27,13 @@ class ChatBox extends React.Component {
     return (
       <ChatWrapper>
         <form action="" onSubmit={this.handleSubmit}>
-          <label htmlFor="userInput">Say something...</label>
           <input
             type="text"
             id="userInput"
             value={userInput}
             onChange={this.handleChange}
+            placeholder="Say Somthing..."
+            autocomplete="off"
           />
         </form>
       </ChatWrapper>

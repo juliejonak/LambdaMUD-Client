@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import img from "./background.png";
-
+import { white } from "ansi-colors";
+import chat from "../../assets/Input_Box.png";
+import direcions from "../../assets/Navigation_Arrows.png";
 /**
  * This is the file that contains all custom built styled-components, used throughout the application.
  */
@@ -133,27 +135,81 @@ export const Body = styled.div`
  * Game Component
  */
 export const GameWrapper = styled.div`
-  /* background: black; */
-  border: 1px solid black;
+  /* border: 1px solid white; */
+  max-width: 957.86px;
+  min-height: 600px;
+  padding: 2rem 0;
   display: flex;
-  flex-wrap: wrap;
-  /* min-height: 100vh; */
+  height: 100%;
+`;
+export const AppBody = styled.div`
+  background: black;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* border: 1px solid red; */
+`;
+export const ViewWrapper = styled.div`
+  position: relative;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 0 1rem;
+`;
+export const ControlWrapper = styled.div`
+  font-size: 1.2rem;
+  color: lightgreen;
+  display: flex;
+  flex-direction: column;
+`;
+export const InstructionDirectionWrapper = styled.div`
+  display: flex;
 `;
 export const DirectionWrapper = styled.div`
-  border: 1px solid red;
-  flex-basis: 25%;
+  background-image: url(${direcions});
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 300px;
+  height: 150px;
+  display: flex;
+  align-self: flex-end;
+  margin-top: 2rem;
+  div {
+    flex-grow: 1;
+  }
+`;
+export const InstructionsWrapper = styled.div`
+  flex-basis: 50%;
+  color: lightgreen;
+  font-size: 1.2rem;
+  line-height: 1.4;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  padding: 1.5rem 1rem 0 1rem;
 `;
 export const MapWrapper = styled.div`
-  border: 1px solid red;
+  height: 320px;
 `;
 export const NotificationWrapper = styled.div`
-  border: 1px solid red;
-  flex-basis: 25%;
+  border: 25px solid transparent;
   flex-grow: 1;
-  flex-shrink: 1;
+  border-image: url(${chat}) 40 round;
 `;
 export const ChatWrapper = styled.div`
-  border: 1px solid red;
-  flex-basis: 25%;
-  margin-left: auto;
+  margin-top: 2rem;
+  border: 25px solid transparent;
+  border-image: url(${chat}) 40 stretch;
+  input {
+    background: transparent;
+    border: none;
+    color: white;
+    outline: 0;
+    ::placeholder {
+      color: white;
+    }
+    width: 100%;
+    box-sizing: border-box;
+  }
 `;

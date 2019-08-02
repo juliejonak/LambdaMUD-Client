@@ -5,8 +5,14 @@ import ChatBox from "../ChatBox/ChatBox";
 import GlobalNotification from "../GlobalNotification/GlobalNotification";
 import config from "../../config";
 import Pusher from "pusher-js";
-
-import { GameWrapper } from "../CustomComponents/index";
+import Instructions from "../Instructions/Instructions";
+import {
+  AppBody,
+  GameWrapper,
+  ViewWrapper,
+  ControlWrapper,
+  InstructionDirectionWrapper
+} from "../CustomComponents/index";
 /**
  * Game holds the entire game that the user interacts with and is the component that communicates with the API endpoints to send and receive data about the user's interaction and movements.
  */
@@ -90,7 +96,7 @@ export default class Game extends Component {
     */
     channel.bind("broadcast", data => {
       this.setState({
-        notifications: data.message
+        notifications: [...this.state.notifications, data.message]
       });
     });
   };
@@ -107,12 +113,21 @@ export default class Game extends Component {
     const { moveDirection } = this.state;
 
     return (
-      <GameWrapper>
-        <Map moveDirection={moveDirection} />
-        <GlobalNotification {...this.state} />
-        <Directions handleMovement={this.handleMovement} />
-        <ChatBox />
-      </GameWrapper>
+      <AppBody>
+        <GameWrapper>
+          <ViewWrapper>
+            <Map moveDirection={moveDirection} />
+            <InstructionDirectionWrapper>
+              <Instructions />
+              <Directions handleMovement={this.handleMovement} />
+            </InstructionDirectionWrapper>
+            <ChatBox />
+          </ViewWrapper>
+          <ControlWrapper>
+            <GlobalNotification {...this.state} />
+          </ControlWrapper>
+        </GameWrapper>
+      </AppBody>
     );
   }
 }
