@@ -63,12 +63,9 @@ class Register extends Component {
       loading: true
     });
 
-    console.log('These are the credentials being send: ', credentials,)
-
     axios
       .post(`${config.apiUrl}/api/registration/`, credentials)
       .then(res => {
-        console.log(res);
         // SET KEY TO localStorage?
         // Verify return format of res {key: 12345}
         localStorage.setItem("authToken", res.data.key);

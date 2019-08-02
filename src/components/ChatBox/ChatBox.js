@@ -16,7 +16,7 @@ class ChatBox extends React.Component {
       .axiosWithAuth()
       .post("/api/adv/say/", { message })
       .then(({ data }) => {
-        console.log("hi", data);
+        console.log(data);
         // TO DO,
         // find out what we intend to do after a user has submit an input
       })

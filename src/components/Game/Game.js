@@ -39,7 +39,6 @@ export default class Game extends Component {
       .axiosWithAuth()
       .post("/api/adv/move/", { direction })
       .then(({ data: { title, description, players, error_msg } }) => {
-        console.log(players);
         error_msg
           ? this.setState({
               title,
@@ -55,7 +54,6 @@ export default class Game extends Component {
               error_msg,
               moveDirection: direction
             });
-        console.log(this.state.players);
       })
       .catch(err => console.log(err));
   };
@@ -76,7 +74,6 @@ export default class Game extends Component {
           description,
           players
         });
-        console.log(title);
         this.subscribeToChannel(uuid);
       })
       .catch(err => {
