@@ -74,6 +74,7 @@ export default class Game extends Component {
           description,
           players
         });
+        console.log(title);
         this.subscribeToChannel(uuid);
       })
       .catch(err => {
@@ -108,15 +109,34 @@ export default class Game extends Component {
       .then(data => console.log(data))
       .catch(err => console.log(err));
   }
+  /**
+   * takes a room title and return the number portion of the title
+   * @param: room title
+   */
 
+  getStartingTile(title) {
+    let splitRoom = title.split("_");
+    let roomNumber = Number(splitRoom[1]);
+    let row = Math.floor(roomNumber / 10);
+    let column = (roomNumber % 10) - 1;
+    if (column === -1) {
+      column = 9;
+      row -= 1;
+    }
+    let userX = 0 + column * 64;
+    let userY = 0 + row * 64;
+    return [userX, userY];
+  }
   render() {
-    const { moveDirection } = this.state;
-
+    let { moveDirection, title } = this.state;
+    const room = this.getStartingTile(title);
+    const userX = room[0];
+    const userY = room[1];
     return (
       <AppBody>
         <GameWrapper>
           <ViewWrapper>
-            <Map moveDirection={moveDirection} />
+            <Map moveDirection={moveDirection} userX={userX} userY={userY} />
             <InstructionDirectionWrapper>
               <Instructions />
               <Directions handleMovement={this.handleMovement} />

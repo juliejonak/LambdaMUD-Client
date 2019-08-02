@@ -182,8 +182,8 @@ class MapComponent extends Component {
     this.state = {
       width: 640,
       height: 320,
-      userX: 320,
-      userY: 128
+      userX: this.props.userX,
+      userY: this.props.userY
     };
     this.canvasRef = React.createRef();
     this.canvasRef2 = React.createRef();
@@ -225,7 +225,7 @@ class MapComponent extends Component {
       });
     };
     background();
-    const { userX, userY } = this.state;
+    const { userX, userY } = this.props;
     userCharacter.onload = () => {
       // based on direction
       switch (this.props.moveDirection) {
