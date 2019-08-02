@@ -1,21 +1,25 @@
 import React, { Component } from "react";
 import Notification from "../Notification/Notification";
-
+import { NotificationWrapper } from "../CustomComponents/index";
 // rendered by Game
 class GlobalNotification extends Component {
-  state = {
-    notifications: this.props.notifications
-  };
   render() {
-    const { notifications } = this.state;
+    const { notifications, name, description, players } = this.props;
     return (
-      <>
+      <NotificationWrapper>
         <h2>Notifications</h2>
-        {notifications &&
-          notifications.map(notification => {
-            return <Notification key={notification.id} {...notification} />;
-          })}
-      </>
+        <p>
+          <span>{name} </span>
+          <span>{description}</span>
+        </p>
+        <div>{players && players.map(player => `${player}`)}</div>
+        <p>
+          {notifications &&
+            notifications.map(notification => {
+              return <Notification key={notification.id} {...notification} />;
+            })}
+        </p>
+      </NotificationWrapper>
     );
   }
 }

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { MapCreator } from "./helpers";
 import tileMap from "../../assets/MUD_Tile_Set.png";
 import tRex from "../../assets/trex.png";
+import { MapWrapper } from "../CustomComponents";
 
 /**
  * Map.js is our instance of the MapCreator, used to dictate the size of the game board, individual tiles, and to create the layers of the graphical game board.
@@ -268,24 +269,17 @@ class MapComponent extends Component {
           console.log(`can't move that way`);
           draw(userX, userY);
       }
-      console.log("drawn", userX, userY);
     };
     function draw(x, y) {
       ctx2.clearRect(0, 0, 640, 320);
       ctx2.drawImage(userCharacter, 0, 0, 64, 64, x, y, 64, 64);
     }
   }
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps) {
     if (prevProps !== this.props) {
       this.updateMap();
     }
   }
-
-  // componentWillReceiveProps(nextProps) {
-  //   if (nextProps.moveDirection) {
-  //     this.updateMap();
-  //   }
-  // }
 
   getContext = () => this.canvasRef.current.getContext("2d");
 
@@ -295,7 +289,7 @@ class MapComponent extends Component {
   render() {
     const { width, height } = this.state;
     return (
-      <div>
+      <MapWrapper>
         <canvas ref={this.canvasRef} width={width} height={height} />
         <canvas
           ref={this.canvasRef2}
@@ -303,7 +297,7 @@ class MapComponent extends Component {
           height={height}
           style={{ position: "absolute", top: "0", left: "0" }}
         />
-      </div>
+      </MapWrapper>
     );
   }
 }

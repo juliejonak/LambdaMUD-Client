@@ -6,8 +6,8 @@ import axios from "axios";
  */
 export const config = {
   // apiUrl: "http://127.0.0.1:8000",
-  apiUrl: "https://lambda-mud-test.herokuapp.com",
-  // apiUrl: "https://cs-mud-backend.herokuapp.com",
+  // apiUrl: "https://lambda-mud-test.herokuapp.com",
+  apiUrl: "https://cs-mud-backend.herokuapp.com",
   /**
    * @returns an Authorization Header with the user's authToken
    */
