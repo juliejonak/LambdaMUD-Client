@@ -11,7 +11,16 @@ class GlobalNotification extends Component {
           <span>{name} </span>
           <span>{description}</span>
         </p>
-        <div>{players && players.map(player => `${player}`)}</div>
+        <div>
+          Players in this room:
+          {players &&
+            players.map(player => (
+              <div key={player}>
+                <br />
+                Name: {`${player}`}
+              </div>
+            ))}
+        </div>
         <p>
           {notifications &&
             notifications.map(notification => {
