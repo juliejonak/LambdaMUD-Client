@@ -1,11 +1,19 @@
 import React, { Component } from "react";
 import Map from "../Map/Map";
 import Directions from "../Directions/Directions";
-import InputBox from "../InputBox/InputBox";
+import ChatBox from "../ChatBox/ChatBox";
 import GlobalNotification from "../GlobalNotification/GlobalNotification";
 import config from "../../config";
 import Pusher from "pusher-js";
+import Instructions from "../Instructions/Instructions";
 
+import {
+  AppBody,
+  GameWrapper,
+  ViewWrapper,
+  ControlWrapper,
+  InstructionDirectionWrapper
+} from "../CustomComponents/index";
 /**
  * Game holds the entire game that the user interacts with and is the component that communicates with the API endpoints to send and receive data about the user's interaction and movements.
  */
@@ -19,25 +27,10 @@ export default class Game extends Component {
     description: "",
     players: [],
     notifications: "",
-    userInput: "",
     error_msg: "",
     moveDirection: ""
   };
-  // TO DO,
-  handleChange = e => {
-    this.setState({ userInput: e.target.value });
-  };
-  handleSubmit = e => {
-    e.preventDefault();
-    const { userInput } = this.state;
-    config
-      .axiosWithAuth("/api/adv/say/", userInput)
-      .then(({ data }) => {
-        // TO DO,
-        // find out what we intend to do after a user has submit an input
-      })
-      .catch(err => console.log(err));
-  };
+
   /**
    * Updates the user's character placement in the game,
    * @param: direction,, string, can only be n,e,w,s
@@ -51,21 +44,17 @@ export default class Game extends Component {
           ? this.setState({
               title,
               description,
-              players: [...this.state.players, ...players],
+              players: [...players],
               error_msg,
               moveDirection: ""
             })
           : this.setState({
               title,
               description,
-              players: [...this.state.players, ...players],
+              players: [...players],
               error_msg,
               moveDirection: direction
             });
-
-        // iterate through possible movements
-
-        // check if its' in there, then pass them down down to MapComponent
       })
       .catch(err => console.log(err));
   };
@@ -108,31 +97,34 @@ export default class Game extends Component {
     */
     channel.bind("broadcast", data => {
       this.setState({
-        notifications: data.message
+        notifications: [...this.state.notifications, data.message]
       });
     });
   };
+
   componentDidMount() {
     this.initializeGame();
-    config
-      .axiosWithAuth()
-      .get("/api/adv/map/")
-      .then(data => console.log(data))
-      .catch(err => console.log(err));
   }
 
   render() {
-    const { notifications, moveDirection } = this.state;
+    let { moveDirection } = this.state;
+
     return (
-      <div>
-        <Map moveDirection={moveDirection} />
-        <Directions handleMovement={this.handleMovement} />
-        <InputBox
-          handleChange={this.handleChange}
-          handleSubmit={this.handleSubmit}
-        />
-        <GlobalNotification notifications={notifications} />
-      </div>
+      <AppBody>
+        <GameWrapper>
+          <ViewWrapper>
+            <Map moveDirection={moveDirection} />
+            <InstructionDirectionWrapper>
+              <Instructions />
+              <Directions handleMovement={this.handleMovement} />
+            </InstructionDirectionWrapper>
+            <ChatBox />
+          </ViewWrapper>
+          <ControlWrapper>
+            <GlobalNotification {...this.state} />
+          </ControlWrapper>
+        </GameWrapper>
+      </AppBody>
     );
   }
 }

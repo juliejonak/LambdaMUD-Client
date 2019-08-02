@@ -1,26 +1,51 @@
 import React, { Component } from "react";
 import Notification from "../Notification/Notification";
+import { NotificationWrapper, LogOut } from "../CustomComponents/index";
+import { withRouter } from "react-router-dom";
+// import logOut from "../../assets/exit.png";
 
 // rendered by Game
 class GlobalNotification extends Component {
-  state = {
-    notifications: this.props.notifications
+  handleLogOut = e => {
+    localStorage.clear();
+    this.props.history.push("/login");
   };
   render() {
-    const { notifications } = this.state;
+    const { notifications, name, description, players } = this.props;
+    console.log(players);
     return (
-      <>
-        <h2>Notifications</h2>
-        {notifications &&
-          notifications.map(notification => {
-            return <Notification key={notification.id} {...notification} />;
-          })}
-      </>
+      <NotificationWrapper>
+        <LogOut onClick={this.handleLogOut} />
+        {/* <img src={logOut} alt="logout" onClick={this.handleLogOut} /> */}
+        <h2>{name} is here</h2>
+        <p>{description}</p>
+        <div>
+          {players.length ? (
+            <>
+              Others in this room:
+              {players.map(player => (
+                <div key={player}>
+                  <br />
+                  Name: {`${player}`}
+                </div>
+              ))}
+            </>
+          ) : (
+            "You are the only one here..."
+          )}
+        </div>
+        <p>
+          {notifications &&
+            notifications.map(notification => {
+              return <Notification key={notification.id} {...notification} />;
+            })}
+        </p>
+      </NotificationWrapper>
     );
   }
 }
 
-export default GlobalNotification;
+export default withRouter(GlobalNotification);
 GlobalNotification.defaultProps = {
   notifications: [
     { id: 1, username: "Julie", room: "cave entrance" },

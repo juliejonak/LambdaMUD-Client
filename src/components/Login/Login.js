@@ -15,7 +15,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faLock } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
-
 /**
  * Login Component allows user to login to their existing account
  * Sends credentials object to the API with a username and password
@@ -62,7 +61,6 @@ class Login extends Component {
     axios
       .post(`${config.apiUrl}/api/login/`, credentials)
       .then(res => {
-        console.log("Login res: ", res.data.key);
         // SET KEY TO localStorage?
         // Verify return format of res {key: 12345}
         localStorage.setItem("authToken", res.data.key);

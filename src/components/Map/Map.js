@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { MapCreator } from "./helpers";
 import tileMap from "../../assets/MUD_Tile_Set.png";
-import tRex from "../../assets/trex.png";
-
+import sprite from "../../assets/sprite.png";
+import { MapWrapper } from "../CustomComponents";
+import config from "../../config/index";
 /**
  * Map.js is our instance of the MapCreator, used to dictate the size of the game board, individual tiles, and to create the layers of the graphical game board.
  * It initializes the canvas layers and draws the game board and sprite onto those canvases.
@@ -181,17 +182,22 @@ class MapComponent extends Component {
     this.state = {
       width: 640,
       height: 320,
-      userX: 320,
-      userY: 128
+      userX: props.userX,
+      userY: props.userY
     };
     this.canvasRef = React.createRef();
     this.canvasRef2 = React.createRef();
   }
+  /**
+   * update the current map by redrawing the 2 canvases
+   * @params: none
+   * returns none
+   */
   updateMap() {
     const image = new Image();
     const userCharacter = new Image();
     image.src = tileMap;
-    userCharacter.src = tRex;
+    userCharacter.src = sprite;
     const ctx = this.canvasRef.current.getContext("2d");
     const ctx2 = this.canvasRef2.current.getContext("2d");
 
@@ -268,42 +274,86 @@ class MapComponent extends Component {
           console.log(`can't move that way`);
           draw(userX, userY);
       }
-      console.log("drawn", userX, userY);
     };
     function draw(x, y) {
       ctx2.clearRect(0, 0, 640, 320);
       ctx2.drawImage(userCharacter, 0, 0, 64, 64, x, y, 64, 64);
     }
   }
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps) {
     if (prevProps !== this.props) {
       this.updateMap();
     }
   }
-
-  // componentWillReceiveProps(nextProps) {
-  //   if (nextProps.moveDirection) {
-  //     this.updateMap();
-  //   }
-  // }
-
+  /**
+   * grab the canvas dom node react ref
+   * @param: none
+   * return the canvas react ref
+   */
   getContext = () => this.canvasRef.current.getContext("2d");
 
   componentDidMount() {
+    this.initializeGame();
+
     this.updateMap();
+  }
+  /**
+   * Initializes the user's character into the game,
+   *@param: none
+   */
+  initializeGame = () => {
+    config
+      .axiosWithAuth()
+      .get(`/api/adv/init/`)
+      .then(({ data: { uuid, name, title, description, players } }) => {
+        this.setState(
+          {
+            uuid,
+            name,
+            title,
+            description,
+            players
+          },
+          () => this.getStartingTile(title)
+        );
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+  /**
+   * takes a room title and set the starting tile of the user
+   * @param: room title
+   * returns user coordinates
+   */
+
+  getStartingTile(title) {
+    let splitRoom = title.split("_");
+    let roomNumber = Number(splitRoom[1]);
+    let row = Math.floor(roomNumber / 10);
+    let column = (roomNumber % 10) - 1;
+    if (column === -1) {
+      column = 9;
+      row -= 1;
+    }
+    let userX = 0 + column * 64;
+    let userY = 0 + row * 64;
+    this.setState({ userX, userY });
+    return [userX, userY];
   }
   render() {
     const { width, height } = this.state;
+
     return (
-      <div>
+      <MapWrapper>
         <canvas ref={this.canvasRef} width={width} height={height} />
         <canvas
           ref={this.canvasRef2}
           width={width}
           height={height}
-          style={{ position: "absolute", top: "0", left: "0" }}
+          style={{ position: "absolute", top: "0", left: "1rem" }}
         />
-      </div>
+      </MapWrapper>
     );
   }
 }

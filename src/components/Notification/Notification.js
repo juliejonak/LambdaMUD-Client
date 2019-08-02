@@ -1,12 +1,13 @@
 import React from "react";
+import { NotificationWrapper } from "../CustomComponents/index";
 // rendered by GlobalNotification
 const Notification = ({ username, room }) => {
   return (
-    <div>
+    <NotificationWrapper>
       <h1>
         {username} has moved to {room}
       </h1>
-    </div>
+    </NotificationWrapper>
   );
 };
 
