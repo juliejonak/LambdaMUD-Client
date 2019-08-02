@@ -7,7 +7,6 @@ class GlobalNotification extends Component {
     const { notifications, name, description, players } = this.props;
     return (
       <NotificationWrapper>
-        <h2>Notifications</h2>
         <p>
           <span>{name} </span>
           <span>{description}</span>

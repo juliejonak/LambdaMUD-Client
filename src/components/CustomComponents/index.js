@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import img from "./background.png";
-import { white } from "ansi-colors";
 import chat from "../../assets/Input_Box.png";
 import direcions from "../../assets/Navigation_Arrows.png";
 /**
@@ -196,6 +195,12 @@ export const NotificationWrapper = styled.div`
   border: 25px solid transparent;
   flex-grow: 1;
   border-image: url(${chat}) 40 round;
+  span {
+    border: 1px solid red;
+  }
+  div {
+    border: 1px solid white;
+  }
 `;
 export const ChatWrapper = styled.div`
   margin-top: 2rem;
