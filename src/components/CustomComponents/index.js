@@ -214,6 +214,8 @@ export const NotificationWrapper = styled.div`
   border: 25px solid transparent;
   flex-grow: 1;
   border-image: url(${chat}) 40 round;
+  padding-top: 2em;
+  padding-bottom: 1em;
 `;
 export const ChatWrapper = styled.div`
   margin-top: 2rem;
