@@ -3,7 +3,7 @@ import { MapCreator } from "./helpers";
 import tileMap from "../../assets/MUD_Tile_Set.png";
 import sprite from "../../assets/sprite.png";
 import { MapWrapper } from "../CustomComponents";
-
+import config from "../../config/index";
 /**
  * Map.js is our instance of the MapCreator, used to dictate the size of the game board, individual tiles, and to create the layers of the graphical game board.
  * It initializes the canvas layers and draws the game board and sprite onto those canvases.
@@ -182,8 +182,8 @@ class MapComponent extends Component {
     this.state = {
       width: 640,
       height: 320,
-      userX: this.props.userX,
-      userY: this.props.userY
+      userX: props.userX,
+      userY: props.userY
     };
     this.canvasRef = React.createRef();
     this.canvasRef2 = React.createRef();
@@ -225,7 +225,7 @@ class MapComponent extends Component {
       });
     };
     background();
-    const { userX, userY } = this.props;
+    const { userX, userY } = this.state;
     userCharacter.onload = () => {
       // based on direction
       switch (this.props.moveDirection) {
@@ -280,14 +280,60 @@ class MapComponent extends Component {
       this.updateMap();
     }
   }
-
   getContext = () => this.canvasRef.current.getContext("2d");
 
   componentDidMount() {
+    this.initializeGame();
+
     this.updateMap();
+  }
+  /**
+   * Initializes the user's character into the game,
+   *@param: none
+   */
+  initializeGame = () => {
+    config
+      .axiosWithAuth()
+      .get(`/api/adv/init/`)
+      .then(({ data: { uuid, name, title, description, players } }) => {
+        this.setState(
+          {
+            uuid,
+            name,
+            title,
+            description,
+            players
+          },
+          () => this.getStartingTile(title)
+        );
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+  /**
+   * takes a room title and set the starting tile of the user
+   * @param: room title
+   * returns user coordinates
+   */
+
+  getStartingTile(title) {
+    let splitRoom = title.split("_");
+    let roomNumber = Number(splitRoom[1]);
+    let row = Math.floor(roomNumber / 10);
+    let column = (roomNumber % 10) - 1;
+    if (column === -1) {
+      column = 9;
+      row -= 1;
+    }
+    let userX = 0 + column * 64;
+    let userY = 0 + row * 64;
+    this.setState({ userX, userY });
+    return [userX, userY];
   }
   render() {
     const { width, height } = this.state;
+
     return (
       <MapWrapper>
         <canvas ref={this.canvasRef} width={width} height={height} />
