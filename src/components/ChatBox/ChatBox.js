@@ -32,7 +32,7 @@ class ChatBox extends React.Component {
             id="userInput"
             value={userInput}
             onChange={this.handleChange}
-            placeholder="Say Somthing..."
+            placeholder="Say Something..."
             autocomplete="off"
           />
         </form>
