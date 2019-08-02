@@ -188,6 +188,11 @@ class MapComponent extends Component {
     this.canvasRef = React.createRef();
     this.canvasRef2 = React.createRef();
   }
+  /**
+   * update the current map by redrawing the 2 canvases
+   * @params: none
+   * returns none
+   */
   updateMap() {
     const image = new Image();
     const userCharacter = new Image();
@@ -280,6 +285,11 @@ class MapComponent extends Component {
       this.updateMap();
     }
   }
+  /**
+   * grab the canvas dom node react ref
+   * @param: none
+   * return the canvas react ref
+   */
   getContext = () => this.canvasRef.current.getContext("2d");
 
   componentDidMount() {
