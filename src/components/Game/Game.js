@@ -6,6 +6,7 @@ import GlobalNotification from "../GlobalNotification/GlobalNotification";
 import config from "../../config";
 import Pusher from "pusher-js";
 import Instructions from "../Instructions/Instructions";
+
 import {
   AppBody,
   GameWrapper,

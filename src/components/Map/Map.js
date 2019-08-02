@@ -351,7 +351,7 @@ class MapComponent extends Component {
           ref={this.canvasRef2}
           width={width}
           height={height}
-          style={{ position: "absolute", top: "0", left: "0" }}
+          style={{ position: "absolute", top: "0", left: "1rem" }}
         />
       </MapWrapper>
     );

@@ -2,6 +2,7 @@ import styled from "styled-components";
 import img from "./background.png";
 import chat from "../../assets/Input_Box.png";
 import direcions from "../../assets/Navigation_Arrows.png";
+import logOut from "../../assets/exit.png";
 /**
  * This is the file that contains all custom built styled-components, used throughout the application.
  */
@@ -44,6 +45,7 @@ export const FormLabel = styled.label`
 `;
 
 export const FormSubmit = styled.button`
+  cursor: pointer;
   width: 25%;
   height: 2.5em;
   border-radius: 50px;
@@ -133,6 +135,27 @@ export const Body = styled.div`
 /**
  * Game Component
  */
+export const AppBody = styled.div`
+  background: black;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* border: 1px solid red; */
+`;
+export const NavWrapper = styled.nav`
+  border: 1px solid white;
+  width: 957.86px;
+  height: 50px;
+  display: flex;
+  justify-content: flex-end;
+  img {
+    /* width: 100%; */
+    /* height: auto; */
+    object-fit: contain;
+  }
+`;
 export const GameWrapper = styled.div`
   /* border: 1px solid white; */
   max-width: 957.86px;
@@ -140,14 +163,6 @@ export const GameWrapper = styled.div`
   padding: 2rem 0;
   display: flex;
   height: 100%;
-`;
-export const AppBody = styled.div`
-  background: black;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* border: 1px solid red; */
 `;
 export const ViewWrapper = styled.div`
   position: relative;
@@ -176,6 +191,9 @@ export const DirectionWrapper = styled.div`
   margin-top: 2rem;
   div {
     flex-grow: 1;
+    :hover {
+      cursor: pointer;
+    }
   }
 `;
 export const InstructionsWrapper = styled.div`
@@ -192,15 +210,10 @@ export const MapWrapper = styled.div`
   height: 320px;
 `;
 export const NotificationWrapper = styled.div`
+  position: relative;
   border: 25px solid transparent;
   flex-grow: 1;
   border-image: url(${chat}) 40 round;
-  span {
-    border: 1px solid red;
-  }
-  div {
-    border: 1px solid white;
-  }
 `;
 export const ChatWrapper = styled.div`
   margin-top: 2rem;
@@ -216,5 +229,17 @@ export const ChatWrapper = styled.div`
     }
     width: 100%;
     box-sizing: border-box;
+  }
+`;
+/**
+ * Log out
+ */
+export const LogOut = styled.img`
+  content: url(${logOut});
+  position: absolute;
+  right: 0;
+  top: -1.5rem;
+  :hover {
+    cursor: pointer;
   }
 `;
