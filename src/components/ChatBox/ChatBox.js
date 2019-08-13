@@ -19,6 +19,7 @@ class ChatBox extends React.Component {
         console.log(data);
         // TO DO,
         // find out what we intend to do after a user has submit an input
+        this.setState({ userInput: ''})
       })
       .catch(err => console.log(err));
   };
